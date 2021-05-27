@@ -54,7 +54,6 @@ namespace cs
 	}
 
 
-
 	string Search5::solve(string facelets)
 	{
 		ColorCube fc(facelets);
@@ -70,16 +69,15 @@ namespace cs
 		ColorCube fc_cc = ColorCube(facelets_src);
 		ColorCube fc_dd = ColorCube(facelets_dst);
 		CubieCube cc(fc_cc);
-		CubieCube dd(fc_cc);
+		CubieCube dd(fc_dd);
 
 		this->solve(cc, dd);
 		return solutionToString();
 	}
 
-	vector<Move> Search5::solve(CubieCube cc, int maxDepth, long probeMax, long probeMin)
+	vector<Move> Search5::solve(CubieCube cc)
 	{
-
-		m_error =cc.verify();
+		m_error = cc.verify();
 		if (m_error != 0)
 		{
 			m_moves.clear();
@@ -87,11 +85,7 @@ namespace cs
 		}
 
 		m_cc = cc;
-		m_moves.resize(maxDepth);
-		m_sol = maxDepth;
-		m_probe = 0;
-		m_probeMax = probeMax;
-		m_probeMin = min(probeMin, probeMax);
+		set_param(m_sol, m_probeMax, m_probeMin);
 		//m_solution = "";
 		m_isRec = false;
 
@@ -105,6 +99,26 @@ namespace cs
 	vector<Move> Search5::solve(CubieCube src, CubieCube dst)
 	{
 		return solve(dst.inv() * src);
+	}
+	
+	string Search5::solve_no_axis(string facelets, int axis)
+	{
+		ColorCube fc(facelets);
+		CubieCube cc(fc);
+
+		solve_no_axis(cc, axis);
+		return solutionToString();
+	}
+
+	string Search5::solve_no_axis(string facelets_src, string facelets_dst, int axis)
+	{
+		ColorCube fc_cc = ColorCube(facelets_src);
+		ColorCube fc_dd = ColorCube(facelets_dst);
+		CubieCube cc(fc_cc);
+		CubieCube dd(fc_dd);
+
+		solve_no_axis(cc, dd, axis);
+		return solutionToString();
 	}
 
 	vector<Move> Search5::solve_no_axis(CubieCube cc, int axis)
@@ -129,8 +143,13 @@ namespace cs
 				break;
 			}
 		}
-
-		assert(found);	// 一定会找到
+		
+		// assert(found);
+		if(!found)
+		{
+			m_error = -10;
+			return vector<Move>();
+		}
 
 		//int axisCube_inv_idx = AxisCube::inv_table[axisCube_idx];
 
@@ -140,13 +159,15 @@ namespace cs
 		CubieCube dd = F.inv() * cc * F;
 		vector<Move> mv = solve(dd);
 
-		for (Move& m : mv)
+		int i;
+		for (Move& m : m_moves)
 		{
 			m = (Move)AxisCube::move_conj_table_i[(int)m][axisCube_idx];
+			m_moves[i] = m;
+			i ++;
 		}
 
-
-		return mv;
+		return m_moves;
 
 	}
 
@@ -155,12 +176,18 @@ namespace cs
 		return solve_no_axis(dst.inv() * src, axis);
 	}
 
-	string Search5::next(int probeMax, int probeMin)
+	void Search5::set_param(int maxDepth, int probeMax, int probeMin)
 	{
 		m_probe = 0;
 		m_probeMax = probeMax;
 		m_probeMin = min(probeMin, probeMax);
-		m_moves.resize(31);
+		m_sol = maxDepth;
+		m_moves.resize(maxDepth);
+	}
+
+	string Search5::next()
+	{
+		set_param(31, 100000, 0);
 		//this->m_solution = "";
 		m_isRec = true;
 

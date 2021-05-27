@@ -1,4 +1,5 @@
 ﻿#include "cs.h"
+#include "tools.h"
 #include <stdio.h>
 #include <ctime>
 
@@ -9,7 +10,8 @@ int main(int argc, char* argv[])
 {
 	cs::init();
 
-	string cubestring = "UUUUUUBLLURRURRUFFLFFLFFLFFFRRDDDDDDLLDLLDBBDBBBBBBRRR";
+	string cubestring = "RRFUUFBLFUUUFRRFDDUFRLFDLFDFRRLDBLDBULLULDBBDLBBUBBRRD";
+	string cubedeststring = "FURLUFLBBLLBURBRRUUDDRFFBLFUDDLDFDDFDBFDLBBULURLUBFRRR";
 	if(argc > 1){
 		cubestring = string(argv[1]);
 	}
@@ -19,17 +21,16 @@ int main(int argc, char* argv[])
 	for (size_t i = 0; i < 1; i++)
 	{
 		/* code */
-		// 5 axis
-		Search5 search5 = Search5();
 		fprintf(stdout, "Cube:%s\n", cubestring.c_str());
-		string solution = search5.solve_no_axis(cubestring, 0);
-		fprintf(stdout, "Solution2:%s\n", solution.c_str());
+		char solution[256];
+		solveCubeToDestNoU((char *)cubestring.c_str(), (char *)cubedeststring.c_str(), solution, 25, 1000, 0);
+		fprintf(stdout, "Solution2:%s\n", solution);
 	}
 	
 
 	clock_t deadtime = clock();
 
-	fprintf(stdout, "Time Cast:%d \n", deadtime - starttime);
+	fprintf(stdout, "Time Cost:%dms \n", deadtime - starttime);
 
 }
 

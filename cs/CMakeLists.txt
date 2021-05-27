@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(cs)
 aux_source_directory(. CS_SRCS)
+add_definitions(-DNDebug)
 add_library(cs SHARED ${CS_SRCS})
 add_executable(csmain ${CS_SRCS})

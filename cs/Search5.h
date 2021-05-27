@@ -150,7 +150,7 @@ namespace cs
 		int m_length1;
 		int m_depth1;
 		int m_maxDep2;
-		int m_sol=25;
+		int m_sol = 25;
 
 		std::vector<Move> m_moves;
 		//string m_solution;
@@ -173,6 +173,7 @@ namespace cs
 		*   -7 : No solution exists for the given maxDepth<br>
 		*   -8 : Probe limit exceeded, no solution within given probMax
 		*   -9 : other error
+		*   -10 : not found error
 		*/
 		int m_error;
 	};

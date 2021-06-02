@@ -12,7 +12,6 @@ extern "C" {
         search5.set_param(maxDepth, probeMax, probeMin);
         string result = search5.solve_no_axis(facelets, 0);
         memcpy(solution, result.c_str(), result.length() + 1);
-        printf("result:(%s) (len:%d) (solution len:%d) \n", result.c_str(), result.length(), strlen(solution));
     }
 
     void solveCubeToDestNoU(char * facelets_src, char * facelets_dst, char *solution, int maxDepth, long probeMax, long probeMin){
@@ -38,7 +37,11 @@ extern "C" {
 
     void teststring(char *input, char *output){
         char* name = (char*)"David";
-        strcpy(output, name);
+        
+        char solution[100];
+        char *facelets = (char *)"RRFUUFBLFUUUFRRFDDUFRLFDLFDFRRLDBLDBULLULDBBDLBBUBBRRD";
+        solveCube(facelets, solution, 25, 1000, 0);
+        memcpy(output, name, strlen(name) + 1);
     }
 
 }

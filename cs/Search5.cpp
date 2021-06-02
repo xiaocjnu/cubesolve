@@ -3,6 +3,7 @@
 #include "FaceCubeBase.h"
 #include "AxisCube.h"
 #include <sstream>
+#include "string.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ namespace cs
 
 	Search5::Search5()
 	{
+		m_moves.resize(m_sol);
 	}
 
 
@@ -130,7 +132,6 @@ namespace cs
 		}
 			
 
-
 		// 查找 5 被 axis 代替的 axisCube
 		bool found = false;
 		int axisCube_idx = -1;
@@ -160,7 +161,7 @@ namespace cs
 		vector<Move> mv = solve(dd);
 
 		int i;
-		for (Move& m : m_moves)
+		for (Move& m : mv)
 		{
 			m = (Move)AxisCube::move_conj_table_i[(int)m][axisCube_idx];
 			m_moves[i] = m;

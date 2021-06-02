@@ -155,8 +155,8 @@ namespace cs
 		std::vector<Move> m_moves;
 		//string m_solution;
 		int m_probe;
-		int m_probeMax = 10000;
-		int m_probeMin;
+		int m_probeMax = 1000;
+		int m_probeMin = 0;
 		bool m_found;
 		//int m_verbose;
 		bool m_isRec = false;

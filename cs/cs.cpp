@@ -8,12 +8,14 @@ RRRUUUUUURRDRRDFFFFFFFFFULLLDDLDDLDDULLULLBBBBBBBBBRRD
 #include <stdio.h>
 #include <ctime>
 #include <iostream>
-#include <Windows.h>
-#include <DbgHelp.h>
 
 using namespace cs;
 using namespace std;
 
+#ifdef Windows
+
+#include <Windows.h>
+#include <DbgHelp.h>
 
 // 创建Dump文件
 void CreateDumpFile(LPCSTR lpstrDumpFilePathName, EXCEPTION_POINTERS *pException)
@@ -38,36 +40,51 @@ LONG ApplicationCrashHandler(EXCEPTION_POINTERS *pException)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
+#endif
+
+void fun()
+{
+	cout << "input num: " << endl;
+	int num;
+	cin >> num;
+	printf("num is %d", 1 / num);
+}
  
 int main(int argc, char* argv[])
 {
+	#ifdef Windows
 	//注册异常处理函数
 	SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)ApplicationCrashHandler);
+	#endif
 
 	cs::init();
 
-	string cubestring = "RRRUUUUUURRDRRDFFFFFFFFFULLLDDLDDLDDULLULLBBBBBBBBBRRD";
-	string cubedeststring = "FURLUFLBBLLBURBRRUUDDRFFBLFUDDLDFDDFDBFDLBBULURLUBFRRR";
-	if(argc > 1){
-		cubestring = string(argv[1]);
-	}
-	// write now time
-	clock_t starttime = clock();
+	int costtime = testPerformance(100);
 
-	for (size_t i = 0; i < 1; i++)
-	{
-		/* code */
-		fprintf(stdout, "Cube:%s\n", cubestring.c_str());
-		char solution[256];
-		// solveCubeToDestNoU((char *)cubestring.c_str(), (char *)cubedeststring.c_str(), solution, 25, 1000, 0);
-		solveCubeNoU((char *)cubestring.c_str(), solution, 25, 1000, 0);
-		fprintf(stdout, "Solution2:%s\n", solution);
-	}
+	fprintf(stdout, "Time Cost:%dms \n", costtime);
+
+	// string cubestring = "RRRUUUUUURRDRRDFFFFFFFFFULLLDDLDDLDDULLULLBBBBBBBBBRRD";
+	// string cubedeststring = "FURLUFLBBLLBURBRRUUDDRFFBLFUDDLDFDDFDBFDLBBULURLUBFRRR";
+	// if(argc > 1){
+	// 	cubestring = string(argv[1]);
+	// }
+	// // write now time
+	// clock_t starttime = clock();
+
+	// for (size_t i = 0; i < 1; i++)
+	// {
+	// 	/* code */
+	// 	fprintf(stdout, "Cube:%s\n", cubestring.c_str());
+	// 	char solution[256];
+	// 	// solveCubeToDestNoU((char *)cubestring.c_str(), (char *)cubedeststring.c_str(), solution, 25, 1000, 0);
+	// 	solveCubeNoU((char *)cubestring.c_str(), solution, 25, 1000, 0);
+	// 	fprintf(stdout, "Solution2:%s\n", solution);
+	// }
 	
 
-	clock_t deadtime = clock();
+	// clock_t deadtime = clock();
 
-	fprintf(stdout, "Time Cost:%dms \n", deadtime - starttime);
+	// fprintf(stdout, "Time Cost:%dms \n", deadtime - starttime);
 
 }
 

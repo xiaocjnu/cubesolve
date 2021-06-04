@@ -15,4 +15,8 @@ extern "C" {
 
     void teststring(char *input, char *output);
 
+    void init();
+
+    int testPerformance(int times, bool showPrint=false);
+
 }

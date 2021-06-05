@@ -15,7 +15,6 @@ aux_source_directory(../ CS_SRCS)
 # release build
 set(CMAKE_BUILD_TYPE Release)
 
-set(CMAKE_OSX_ARCHITECTURES "$(ARCHS_STANDARD)")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode")
 set(CMAKE_SUPPRESS_REGENERATION true)

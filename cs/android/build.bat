@@ -14,7 +14,7 @@ if not exist build-v8a (
         -DCMAKE_TOOLCHAIN_FILE="%ANDROID_NDK%\build\cmake\android.toolchain.cmake"  ^
         -DCMAKE_MAKE_PROGRAM="%ANDROID_NDK%\prebuilt\windows-x86_64\bin\make.exe"  ^
         -DANDROID_ABI=arm64-v8a  ^
-        -DANDROID_NATIVE_API_LEVEL=21  ^
+        -DANDROID_NATIVE_API_LEVEL=18  ^
         -DANDROID_ARM_MODE=arm
 )
     
@@ -32,7 +32,7 @@ if not exist build-v7a (
         -DCMAKE_TOOLCHAIN_FILE="%ANDROID_NDK%\build\cmake\android.toolchain.cmake"  ^
         -DCMAKE_MAKE_PROGRAM="%ANDROID_NDK%\prebuilt\windows-x86_64\bin\make.exe"  ^
         -DANDROID_ABI=armeabi-v7a  ^
-        -DANDROID_NATIVE_API_LEVEL=21  ^
+        -DANDROID_NATIVE_API_LEVEL=18  ^
         -DANDROID_ARM_MODE=arm 
 )
     
@@ -50,7 +50,7 @@ if not exist build-x86 (
         -DCMAKE_TOOLCHAIN_FILE="%ANDROID_NDK%\build\cmake\android.toolchain.cmake"  ^
         -DCMAKE_MAKE_PROGRAM="%ANDROID_NDK%\prebuilt\windows-x86_64\bin\make.exe"  ^
         -DANDROID_ABI=x86  ^
-        -DANDROID_NATIVE_API_LEVEL=21  ^
+        -DANDROID_NATIVE_API_LEVEL=18  ^
         -DANDROID_ARM_MODE=arm 
 )
     
